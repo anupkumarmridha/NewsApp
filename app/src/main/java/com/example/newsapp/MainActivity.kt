@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.example.newsapp.ui.navigation.AppNavigation
 import com.example.newsapp.ui.theme.NewsAppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -70,13 +71,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    AppNavigation(innerPadding)
                 }
             }
         }
+
+
 
         // Simulate a delay for the splash screen
         // In a real app, you would load your data here
@@ -87,21 +87,5 @@ class MainActivity : ComponentActivity() {
             showSplashScreen = false
         }
 
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NewsAppTheme {
-        Greeting("Android")
     }
 }

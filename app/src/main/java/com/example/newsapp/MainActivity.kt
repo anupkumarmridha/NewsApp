@@ -81,9 +81,11 @@ class MainActivity : ComponentActivity() {
                     topBar    = {
                         AppTopBar(
                             logoRes            = R.drawable.ic_logo,
-                            onLogoClick        = { TODO() },
-                            onSearchClick      = { TODO() },
-                            onNotificationClick= { TODO() }
+                            onLogoClick        = { /* TODO: Implement logo click */ },
+                            onSearchClick      = { /* TODO: Implement search click */ },
+                            onNotificationClick= { /* TODO: Implement notification click */ },
+                            onSearch           = { /* TODO: Implement search */ }
+
                         )
                     },
                     bottomBar = { BottomNavigationBar(navController) }

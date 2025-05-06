@@ -58,16 +58,16 @@ fun Navigation(navController: NavHostController,innerPadding: PaddingValues) {
             ) + fadeOut(animationSpec = tween(400))
         },
     ) {
-        composable(AppScreens.Home) { // Use the string constant
+        composable(AppScreens.Home) {
             HomeScreen(navController)
         }
-        composable(AppScreens.Favourites) { // Use the string constant
+        composable(AppScreens.Favourites) {
             FavouritesScreen()
         }
-        composable(AppScreens.Discover) { // Use the string constant
+        composable(AppScreens.Discover) {
             DiscoverScreen()
         }
-        composable(AppScreens.Profile) { // Use the string constant
+        composable(AppScreens.Profile) {
             ProfileScreen()
         }
     }

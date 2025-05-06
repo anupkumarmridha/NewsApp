@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun FavouritesScreen() {
-    Box(modifier = Modifier.fillMaxSize().background(color = Color.Red)) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Text(text = "Favourites")
     }
 }

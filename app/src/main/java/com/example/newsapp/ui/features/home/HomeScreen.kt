@@ -19,8 +19,7 @@ import com.example.newsapp.ui.navigation.AppScreens
 fun HomeScreen(navController: NavController) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.LightGray),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {

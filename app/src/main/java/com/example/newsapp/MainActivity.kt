@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.rememberNavController
+import com.example.newsapp.ui.BottomNavigationBar
 import com.example.newsapp.ui.navigation.AppNavigation
 import com.example.newsapp.ui.theme.NewsAppTheme
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +29,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         var showSplashScreen = true
+
 
         // Install the splash screen
         installSplashScreen().apply {
@@ -70,14 +73,19 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NewsAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppNavigation(innerPadding)
-                }
+
+                val navController = rememberNavController()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    bottomBar = { BottomNavigationBar(navController) }
+                ) { innerPadding ->
+                    AppNavigation(
+                        navController = navController,
+                        innerPadding  = innerPadding
+                    )
             }
         }
-
-
-
+    }
         // Simulate a delay for the splash screen
         // In a real app, you would load your data here
         // and set showSplashScreen to false when done
@@ -86,6 +94,5 @@ class MainActivity : ComponentActivity() {
             delay(3000)
             showSplashScreen = false
         }
-
     }
 }

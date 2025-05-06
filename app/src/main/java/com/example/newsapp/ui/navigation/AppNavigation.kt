@@ -20,8 +20,10 @@ import com.example.newsapp.ui.features.profile.ProfileScreen
 
 
 @Composable
-fun AppNavigation(innerPadding: PaddingValues) {
-    val navController = rememberNavController()
+fun AppNavigation(
+    navController: NavHostController = rememberNavController(),
+    innerPadding: PaddingValues
+) {
     Navigation(navController,innerPadding)
 }
 

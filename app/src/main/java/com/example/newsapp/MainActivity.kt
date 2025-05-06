@@ -18,8 +18,8 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.example.newsapp.ui.AppTopBar
-import com.example.newsapp.ui.BottomNavigationBar
+import com.example.newsapp.ui.components.AppTopBar
+import com.example.newsapp.ui.components.BottomNavigationBar
 import com.example.newsapp.ui.navigation.AppNavigation
 import com.example.newsapp.ui.theme.NewsAppTheme
 import kotlinx.coroutines.CoroutineScope

@@ -18,6 +18,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.example.newsapp.ui.AppTopBar
 import com.example.newsapp.ui.BottomNavigationBar
 import com.example.newsapp.ui.navigation.AppNavigation
 import com.example.newsapp.ui.theme.NewsAppTheme
@@ -77,6 +78,14 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
+                    topBar    = {
+                        AppTopBar(
+                            logoRes            = R.drawable.ic_logo,
+                            onLogoClick        = { TODO() },
+                            onSearchClick      = { TODO() },
+                            onNotificationClick= { TODO() }
+                        )
+                    },
                     bottomBar = { BottomNavigationBar(navController) }
                 ) { innerPadding ->
                     AppNavigation(

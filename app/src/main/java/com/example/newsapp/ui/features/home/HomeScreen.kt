@@ -11,27 +11,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.newsapp.ui.navigation.AppScreens
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreenContent() {
     Box(
         modifier = Modifier
             .fillMaxSize(),
-        contentAlignment = Alignment.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Home")
-            Button(
-                onClick = {
-                    navController.navigate(AppScreens.Favourites)
-                },
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text("Go to Favourites")
-            }
-        }
+
     }
 }
+
+// Keep your original HomeScreen with navigation
+@Composable
+fun HomeScreen(navController: NavController) {
+    HomeScreenContent(
+
+    )
+}
+
+// Use the content version for preview
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    HomeScreenContent()
+}
+

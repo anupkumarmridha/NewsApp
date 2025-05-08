@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="breaking_news">Breaking News</string>
+    <string-array name="news_categories">
+        <item>General</item>
+        <item>Business</item>
+        <item>Technology</item>
+        <item>Entertainment</item>
+        <item>Sports</item>
+        <item>Science</item>
+        <item>Health</item>
+    </string-array>
 </resources>

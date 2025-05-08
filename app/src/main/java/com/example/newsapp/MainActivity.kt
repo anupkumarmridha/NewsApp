@@ -35,7 +35,7 @@ import kotlin.getValue
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         var showSplashScreen = true
-        val newsViewModel: NewsViewModel by viewModels()
+//        val newsViewModel: NewsViewModel by viewModels()
 
         // Install the splash screen
         installSplashScreen().apply {
@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
         // and set showSplashScreen to false when done
         // For example:
         CoroutineScope(Dispatchers.IO).launch {
-            newsViewModel.load("India")
+//            newsViewModel.load("Genaral")
             delay(3000)
             showSplashScreen = false
         }

@@ -1,5 +1,7 @@
 package com.example.newsapp.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -15,10 +17,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.ui.features.discover.DiscoverScreen
 import com.example.newsapp.ui.features.favourites.FavouritesScreen
+import com.example.newsapp.ui.features.home.ArticleDetailScreen
 import com.example.newsapp.ui.features.home.HomeScreen
 import com.example.newsapp.ui.features.profile.ProfileScreen
+import kotlin.text.get
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController(),
@@ -27,6 +32,7 @@ fun AppNavigation(
     Navigation(navController,innerPadding)
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(navController: NavHostController,innerPadding: PaddingValues) {
     NavHost(
@@ -59,7 +65,16 @@ fun Navigation(navController: NavHostController,innerPadding: PaddingValues) {
         },
     ) {
         composable(AppScreens.Home) {
-            HomeScreen(navController)
+            HomeScreen(navController=navController)
+        }
+
+        composable(AppScreens.Detail) { backStackEntry ->
+            val article = navController.previousBackStackEntry
+                ?.savedStateHandle
+                ?.get<com.example.newsapp.domain.model.Article>("article")
+            article?.let {
+                ArticleDetailScreen(article = it)
+            }
         }
         composable(AppScreens.Favourites) {
             FavouritesScreen()

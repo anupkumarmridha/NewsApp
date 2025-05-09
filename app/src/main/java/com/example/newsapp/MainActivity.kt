@@ -1,41 +1,40 @@
 package com.example.newsapp
 
 import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.ui.components.AppTopBar
 import com.example.newsapp.ui.components.BottomNavigationBar
 import com.example.newsapp.ui.navigation.AppNavigation
+import com.example.newsapp.ui.navigation.AppScreens
 import com.example.newsapp.ui.theme.NewsAppTheme
-import com.example.newsapp.ui.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.getValue
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         var showSplashScreen = true
-//        val newsViewModel: NewsViewModel by viewModels()
+
 
         // Install the splash screen
         installSplashScreen().apply {
@@ -81,19 +80,28 @@ class MainActivity : ComponentActivity() {
             NewsAppTheme {
 
                 val navController = rememberNavController()
+                val backStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = backStackEntry?.destination?.route
+                val showBars = currentRoute != AppScreens.Detail
+
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar    = {
-                        AppTopBar(
-                            logoRes            = R.drawable.ic_logo,
-                            onLogoClick        = { /* TODO: Implement logo click */ },
-                            onSearchClick      = { /* TODO: Implement search click */ },
-                            onNotificationClick= { /* TODO: Implement notification click */ },
-                            onSearch           = { /* TODO: Implement search */ }
-
-                        )
+                    topBar = {
+                        if (showBars) {
+                            AppTopBar(
+                                logoRes             = R.drawable.ic_logo,
+                                onLogoClick         = { /* … */ },
+                                onSearchClick       = { /* … */ },
+                                onNotificationClick = { /* … */ },
+                                onSearch            = { /* … */ }
+                            )
+                        }
                     },
-                    bottomBar = { BottomNavigationBar(navController) }
+                    bottomBar = {
+                        if (showBars) {
+                            BottomNavigationBar(navController)
+                        }
+                    }
                 ) { innerPadding ->
                     AppNavigation(
                         navController = navController,
@@ -102,12 +110,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-        // Simulate a delay for the splash screen
-        // In a real app, you would load your data here
-        // and set showSplashScreen to false when done
-        // For example:
         CoroutineScope(Dispatchers.IO).launch {
-//            newsViewModel.load("Genaral")
             delay(3000)
             showSplashScreen = false
         }

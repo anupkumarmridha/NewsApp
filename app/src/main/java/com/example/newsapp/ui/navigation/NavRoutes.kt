@@ -6,4 +6,5 @@ object AppScreens {
     const val Favourites = "favourites"
     const val Discover = "discover"
     const val Profile = "profile"
+    const val Detail = "detail"
 }

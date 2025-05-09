@@ -36,7 +36,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -46,6 +45,8 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
+import com.example.newsapp.ui.formatDate
+import com.example.newsapp.ui.navigation.AppScreens
 import com.example.newsapp.ui.viewmodel.NewsViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -54,8 +55,9 @@ import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreenContent(
+fun HomeScreen(
     newsViewModel: NewsViewModel = hiltViewModel(),
+    navController: NavController,
 ) {
 
     val uiState by newsViewModel.uiState.collectAsState()
@@ -118,7 +120,7 @@ fun HomeScreenContent(
             else {
                 LazyColumn {
                     items(articles) { articleItem ->
-                        ArticleItem(article = articleItem)
+                        ArticleItem(article = articleItem, navController = navController)
                     }
                 }
             }
@@ -131,12 +133,20 @@ fun HomeScreenContent(
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ArticleItem(article: Article) {
+fun ArticleItem(
+    article: Article,
+    navController: NavController
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { /* Handle article click */ }
+            .clickable {
+                navController.currentBackStackEntry
+                    ?.savedStateHandle
+                    ?.set("article", article)
+                navController.navigate(AppScreens.Detail)
+            }
     ) {
         Row(
             modifier = Modifier
@@ -184,16 +194,7 @@ fun ArticleItem(article: Article) {
     }
 }
 
-private fun formatDate(timestamp: Long): String {
-    return try {
-        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-        val netDate = Date(timestamp)
-        sdf.format(netDate)
-    } catch (e: Exception) {
-        // Fallback or error logging
-        DateUtils.getRelativeTimeSpanString(timestamp).toString()
-    }
-}
+
 
 
 
